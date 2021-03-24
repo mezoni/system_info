@@ -165,6 +165,7 @@ abstract class SysInfo {
             .intValue;
         return value * 1024;
       case 'macos':
+      case 'ios':
         return getFreeVirtualMemory();
       case 'windows':
         final data = _wmicGetValueAsMap('OS', ['FreePhysicalMemory'])!;
@@ -195,6 +196,7 @@ abstract class SysInfo {
             .intValue;
         return (physical + swap) * 1024;
       case 'macos':
+      case 'ios':
         final data =
             _fluent(_exec('vm_stat', [])).trim().stringToMap(':').mapValue;
         final free =
@@ -218,6 +220,7 @@ abstract class SysInfo {
       case 'android':
       case 'linux':
       case 'macos':
+      case 'ios':
         return _fluent(_exec('uname', ['-m'])).trim().stringValue;
       case 'windows':
         final wow64 =
@@ -269,6 +272,7 @@ abstract class SysInfo {
 
         return 32;
       case 'macos':
+      case 'ios':
         if (_fluent(_exec('uname', ['-m'])).trim().stringValue == 'x86_64') {
           return 64;
         }
@@ -298,6 +302,7 @@ abstract class SysInfo {
       case 'android':
       case 'linux':
       case 'macos':
+      case 'ios':
         return _fluent(_exec('uname', ['-s'])).trim().stringValue;
       case 'windows':
         return _fluent(_environment['OS']).stringValue;
@@ -311,6 +316,7 @@ abstract class SysInfo {
       case 'android':
       case 'linux':
       case 'macos':
+      case 'ios':
         return _fluent(_exec('uname', ['-r'])).trim().stringValue;
       case 'windows':
         return operatingSystemVersion;
@@ -329,6 +335,7 @@ abstract class SysInfo {
             .mapValue;
         return _fluent(data['Distributor ID']).stringValue;
       case 'macos':
+      case 'ios':
         final data =
             _fluent(_exec('sw_vers', [])).trim().stringToMap(':').mapValue;
         return _fluent(data['ProductName']).stringValue;
@@ -350,6 +357,7 @@ abstract class SysInfo {
             .mapValue;
         return _fluent(data['Release']).stringValue;
       case 'macos':
+      case 'ios':
         final data =
             _fluent(_exec('sw_vers', [])).trim().stringToMap(':').mapValue;
         return _fluent(data['ProductVersion']).stringValue;
@@ -470,6 +478,7 @@ abstract class SysInfo {
 
         return UnmodifiableListView(processors);
       case 'macos':
+      case 'ios':
         final data = _fluent(_exec('sysctl', ['machdep.cpu']))
             .trim()
             .stringToMap(':')
@@ -578,6 +587,7 @@ abstract class SysInfo {
             .intValue;
         return value * 1024;
       case 'macos':
+      case 'ios':
         final pageSize = _fluent(_exec('sysctl', ['-n', 'hw.pagesize']))
             .trim()
             .parseInt()
@@ -617,6 +627,7 @@ abstract class SysInfo {
             .intValue;
         return (physical + swap) * 1024;
       case 'macos':
+      case 'ios':
         final data =
             _fluent(_exec('vm_stat', [])).trim().stringToMap(':').mapValue;
         final free =
@@ -657,6 +668,7 @@ abstract class SysInfo {
       case 'android':
       case 'linux':
       case 'macos':
+      case 'ios':
         return _fluent(_environment['HOME']).stringValue;
       case 'windows':
         return _fluent(_environment['USERPROFILE']).stringValue;
@@ -670,6 +682,7 @@ abstract class SysInfo {
       case 'android':
       case 'linux':
       case 'macos':
+      case 'ios':
         return _fluent(_exec('id', ['-u'])).trim().stringValue;
       case 'windows':
         final data = _wmicGetValueAsMap('UserAccount', ['SID'],
@@ -685,6 +698,7 @@ abstract class SysInfo {
       case 'android':
       case 'linux':
       case 'macos':
+      case 'ios':
         return _fluent(_exec('whoami', [])).trim().stringValue;
       case 'windows':
         final data = _wmicGetValueAsMap('ComputerSystem', ['UserName'])!;
@@ -703,6 +717,7 @@ abstract class SysInfo {
             .parseInt()
             .intValue;
       case 'macos':
+      case 'ios':
         if (Platform.version.contains('macos_ia32')) {
           return 32;
         } else if (Platform.version.contains('macos_x64')) {
@@ -734,6 +749,7 @@ abstract class SysInfo {
       case 'android':
       case 'linux':
       case 'macos':
+      case 'ios':
         final data = _fluent(_exec('ps', ['-o', 'vsz', '-p', '$pid']))
             .trim()
             .stringToList()
