@@ -158,7 +158,7 @@ abstract class SysInfo {
             .trim()
             .stringToMap(':')
             .mapValue;
-        final value = _fluent(data['MemFree'])
+        final value = _fluent(data['MemAvailable'])
             .split(' ')
             .elementAt(0)
             .parseInt()
@@ -183,7 +183,7 @@ abstract class SysInfo {
             .trim()
             .stringToMap(':')
             .mapValue;
-        final physical = _fluent(data['MemFree'])
+        final physical = _fluent(data['MemAvailable'])
             .split(' ')
             .elementAt(0)
             .parseInt()
